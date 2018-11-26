@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="~/script/node_modules/mdi/css/materialdesignicons.min.css" />
+<link rel="stylesheet" href="~/Scripts/css/style.css" />
+<header class="mdc-toolbar mdc-elevation--z4 mdc-toolbar--fixed">
+    <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+            <div class="mdc-menu-anchor">
+                <div class="mdc-menu-anchor">
+                    <a href="/Login/Index" class="mdc-toolbar__icon mdc-ripple-surface" data-mdc-auto-init="MDCRipple">
+                        <i class="material-icons">widgets</i>Login
+                    </a>
+                </div>
+            </div>
+        </section>
+    </div>
+</header>
+<!-- partial -->
+<div class="page-wrapper mdc-toolbar-fixed-adjust">
+    <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <div class="mdc-card">
+                        <section class="mdc-card__primary">
+                            <h1 class="mdc-card__title mdc-card__title--large">Products</h1>
+                        </section>
+                        <div class="template-demo">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th class="text-left">Description</th>
+                                        <th>quantity</th>
+                                        <th>price</th>
+                                        <th>edit</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach (Model.tb_Items item in ViewData["data"] as List<Model.tb_Items>)
+                                    {
+                                        <tr>
+                                            <td class="text-left">@item.Description</td>
+                                            <td>@item.Quantity</td>
+                                            <td>@item.Price</td>
+                                            <td><a href="/Product/Edit?id=@item.ID&userid=@item.UserID">edit it</a></td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
+
+<div class="page-wrapper mdc-toolbar-fixed-adjust">
+    <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <div class="mdc-card">
+                        <div class="mdc-layout-grid__inner">
+                            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-7">
+                                <section class="purchase__card_section">
+                                    @*<p>Like what you see? Check out our premium version for more.</p>*@
+                                </section>
+                            </div>
+                            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-5">
+                                <section class="purchase__card_section d-flex align-item-center">
+
+                                    <a href="/Product/Edit?id=0&userid=@ViewBag.userid"  target="_blank" class="mdc-button mdc-button--raised mdc-button--dense" data-mdc-auto-init="MDCRipple">
+                                        Add Product
+                                    </a>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>

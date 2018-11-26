@@ -1,0 +1,160 @@
+﻿
+@{
+    ViewBag.Title = "Edit";
+    var m = new Model.tb_Items();
+    m= ViewData["item"] as Model.tb_Items;
+}
+
+<h2>Edit</h2>
+
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<link rel="stylesheet" href="~/script/node_modules/mdi/css/materialdesignicons.min.css" />
+<link rel="stylesheet" href="~/Scripts/css/style.css" />
+<script type="text/javascript">
+    function edit() {
+        var Description = $("#tf-box").val();
+        var Quantity = Number($("#tf-box-leading").val());
+        var ID = Number($("#tf-box-id").val());
+        var Price = parseFloat($("#tf-box-price").val());
+        var UserID = Number($("#tf-box-userid").val());
+        if (Description == "") {
+            alert("Please input Description.");
+        }
+        else {
+            url = "/Product/SaveAdd";
+            if (Number($("#tf-box-id").val()) > 0) {
+                url = "/Product/SaveEdit"
+            }
+            $.ajax({
+                url: url,
+                data: {
+                    Description: Description,
+                    Quantity: Quantity,
+                    Price: Price,
+                    ID: ID,
+                    UserID:UserID
+                },
+                type: "POST",
+                success: function (re) {
+                    if (re) {
+                        window.location.href = "/Product/Index?id=" + UserID;
+                    }
+                    else {
+                        alert("Editor failed, please try again");
+                    }
+                }
+            });
+        }
+    }
+
+</script>
+<header class="mdc-toolbar mdc-elevation--z4 mdc-toolbar--fixed">
+    <div class="mdc-toolbar__row">
+        <section class="mdc-toolbar__section mdc-toolbar__section--align-end" role="toolbar">
+            <div class="mdc-menu-anchor">
+                @*<div class="mdc-menu-anchor">
+                        <a href="#" class="mdc-toolbar__icon mdc-ripple-surface" data-mdc-auto-init="MDCRipple">
+                            <i class="material-icons">widgets</i>Login
+                        </a>
+                    </div>*@
+            </div>
+        </section>
+    </div>
+</header>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <section class="mdc-card__primary">
+            <h1 class="mdc-card__title mdc-card__title--large">Edit Product</h1>
+        </section>
+        <section class="mdc-card__supporting-text">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop">
+                    <div class="template-demo">
+                        <div id="demo-tf-box-wrapper">
+                            <div id="tf-box-example" class="mdc-text-field mdc-text-field--box w-100">
+                                <input type="text" id="tf-box" class="mdc-text-field__input" aria-controls="name-validation-message" value="@m.Description">
+                                <label for="tf-box" class="mdc-text-field__label">Description</label>
+                                <div class="mdc-text-field__bottom-line"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop">
+                    <div class="template-demo">
+                        <div id="demo-tf-box-leading-wrapper">
+                            <div id="tf-box-leading-example" class="mdc-text-field mdc-text-field--box mdc-text-field--with-leading-icon w-100">
+                                <i class="material-icons mdc-text-field__icon" tabindex="0">event</i>
+                                <input type="text" id="tf-box-leading" class="mdc-text-field__input" value="@m.Quantity">
+                                <label for="tf-box-leading" class="mdc-text-field__label">Quantity</label>
+                                <div class="mdc-text-field__bottom-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+    <div class="mdc-card">
+        <section class="mdc-card__primary">
+            <h1 class="mdc-card__title mdc-card__title--large"></h1>
+        </section>
+        <section class="mdc-card__supporting-text">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop">
+                    <div class="template-demo">
+                        <div id="demo-tf-box-wrapper">
+                            <div id="tf-box-example" class="mdc-text-field mdc-text-field--box w-100">
+                                <input type="text" id="tf-box-price" class="mdc-text-field__input" aria-controls="name-validation-message" value="@m.Price">
+                                <label for="tf-box-price" class="mdc-text-field__label">Price</label>
+                                <div class="mdc-text-field__bottom-line"></div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <div class="mdc-layout-grid__cell mdc-layout-grid__cell--span-4-desktop" style="display:none;">
+                    <div class="template-demo">
+                        <div id="demo-tf-box-leading-wrapper">
+                            <div id="tf-box-leading-example" class="mdc-text-field mdc-text-field--box mdc-text-field--with-leading-icon w-100">
+                                <i class="material-icons mdc-text-field__icon" tabindex="0">event</i>
+                                <input type="text" id="tf-box-id" class="mdc-text-field__input" value="@m.ID"><input type="text" id="tf-box-userid" class="mdc-text-field__input" value="@ViewBag.userid">
+                                <label for="tf-box-id" class="mdc-text-field__label">Your Password</label>
+                                <div class="mdc-text-field__bottom-line"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<div class="page-wrapper mdc-toolbar-fixed-adjust">
+    <main class="content-wrapper">
+        <div class="mdc-layout-grid">
+            <div class="mdc-layout-grid__inner">
+                <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-12">
+                    <div class="mdc-card">
+                        <div class="mdc-layout-grid__inner">
+                            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-7">
+                                <section class="purchase__card_section">
+                                    @*<p>Like what you see? Check out our premium version for more.</p>*@
+                                </section>
+                            </div>
+                            <div class="mdc-layout-grid__cell stretch-card mdc-layout-grid__cell--span-5">
+                                <section class="purchase__card_section d-flex align-item-center">
+
+                                    <a href="#" onclick="edit()" target="_blank" class="mdc-button mdc-button--raised mdc-button--dense" data-mdc-auto-init="MDCRipple">
+                                        Save It
+                                    </a>
+                                </section>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</div>
